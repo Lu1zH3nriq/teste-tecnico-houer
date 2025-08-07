@@ -99,6 +99,7 @@ class OperationsDataCsvController {
     }
     
     async create(req, res) {
+
         const requiredFields = [
             'NOMEDEP', 'DE', 'MUN', 'DISTR', 'CODESC', 'NOMESC', 'TIPOESC', 'TIPOESC_DESC'
         ];
@@ -113,7 +114,7 @@ class OperationsDataCsvController {
             const escola = await OperationsDataCsvRepository.createSchool(req.body);
             res.json({
                 status: "sucess",
-                message: 'Deu certo',
+                message: 'Registro criado com sucesso!',
                 data: escola
             });
         } catch (err) {
@@ -126,8 +127,10 @@ class OperationsDataCsvController {
 
     
     async list(req, res) {
+
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 20;
+
         try {
             const { rows, count } = await OperationsDataCsvRepository.listSchoolsPaginated(page, pageSize);
             res.json({

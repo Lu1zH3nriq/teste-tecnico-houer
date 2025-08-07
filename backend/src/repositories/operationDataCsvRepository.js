@@ -45,7 +45,7 @@ class OperationsDataCsvRepository {
         const result = await School.findAndCountAll({
             offset,
             limit: pageSize,
-            order: [['id', 'ASC']]
+            order: [['id', 'DESC']]
         });
         return result;
     }
