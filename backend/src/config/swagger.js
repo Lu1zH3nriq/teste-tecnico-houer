@@ -9,6 +9,20 @@ const options = {
       title: 'API Documentada com Swagger',
       version: '1.0.0',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: []
+      }
+    ],
   },
   apis: [
     './src/routes/*.js',

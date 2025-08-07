@@ -23,6 +23,8 @@ const upload = multer({ dest: 'uploads/' });
  *               file:
  *                 type: string
  *                 format: binary
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Upload realizado com sucesso

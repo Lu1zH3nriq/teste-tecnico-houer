@@ -25,6 +25,8 @@ const OperationsDataCsvController = require('../../controllers/operationsDataCsv
  *           type: integer
  *           default: 20
  *         description: Quantidade de registros por página
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista paginada de escolas
