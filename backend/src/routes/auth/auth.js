@@ -94,4 +94,39 @@ router.post('/register', (req, res) => AuthController.register(req, res));
  */
 router.post('/login', (req, res) => AuthController.login(req, res));
 
+/**
+ * @swagger
+ * /api/auth/token/refresh:
+ *   post:
+ *     summary: Gera um novo access token a partir do refresh token
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refresh
+ *             properties:
+ *               refresh:
+ *                 type: string
+ *                 example: <refresh_token>
+ *     responses:
+ *       200:
+ *         description: Novo access token gerado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 access:
+ *                   type: string
+ *                   example: <novo_access_token>
+ *       401:
+ *         description: Refresh token inválido ou expirado
+ */
+router.post('/token/refresh', (req, res) => AuthController.refreshToken(req, res));
+
 module.exports = router;
