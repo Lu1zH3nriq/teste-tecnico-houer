@@ -1,4 +1,4 @@
-// swagger.js
+
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -10,7 +10,10 @@ const options = {
       version: '1.0.0',
     },
   },
-  apis: ['./src/routes/*.js'], // Caminho para os arquivos de rotas
+  apis: [
+    './src/routes/*.js',
+    './src/routes/**/*.js',
+  ],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

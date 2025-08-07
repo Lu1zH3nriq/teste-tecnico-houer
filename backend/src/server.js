@@ -1,11 +1,19 @@
-// server.js
-const app = require('./app/app');
 const dotenv = require('dotenv');
-
-// Carregar variáveis de ambiente
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const app = require('./app/app');
+const sequelize = require('./config/db/dbConfig');
+const School = require('./models/School');
+
+sequelize.authenticate()
+  .then(() => { console.log('Banco conectado!') })
+  .catch((error) => { console.log('Erro ao conectar no banco: ', error) });
+
+sequelize.sync()
+  .then(() => { console.log("Modelos Sincronizado") })
+  .catch((error) => { console.log("Erro ao sincronizar modelos: ", error) });
+
+const PORT = process.env.PORT || 3333;
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

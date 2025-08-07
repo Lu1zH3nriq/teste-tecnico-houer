@@ -1,16 +1,16 @@
-// app.js
 const express = require('express');
 const app = express();
-const routes = require('../routes');
-const { swaggerUi, swaggerSpec } = require('../config/swagger'); // Importação do Swagger
+const { swaggerUi, swaggerSpec } = require('../config/swagger');
 
-// Middleware global
+const DataCsvRoutes = require("../routes/data_csv/dt_csv");
+const OperationsDataCsv = require('../routes/operations_data_csv/operationDataCsv')
+
 app.use(express.json());
+app.use('/docs/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Middleware para Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/data', DataCsvRoutes);
+app.use('/api/operations',OperationsDataCsv);
 
-// Rotas principais
-app.use('/api', routes);
+
 
 module.exports = app;
