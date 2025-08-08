@@ -88,6 +88,11 @@ npm start
 - Frontend: http://localhost:3000
 - Backend: http://localhost:3333
 
+# OBSERVAÇÃO: 
+ - O arquivo CSV de exemplo para os testes, está na pasta `/backend/src/data` e o nome do arquivo é `Escola_Dependencias_062025.csv`.
+
+ - O outro arquivo `DIC_06_Escolas_Dependencias.csv` é apenas um dicionário de dados, não sendo necessário para o funcionamento da aplicação.
+
 ## Executando com Docker Compose
 Na raiz do projeto, rode:
 ```bash
