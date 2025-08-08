@@ -28,7 +28,11 @@ function PublicRoute({ children }) {
   if (isLoading) {
     return (
       <div className="loading-container">
-        <div className="loading-spinner">
+        <div className="loading-spinner" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent border-solid rounded-full animate-spin"></span>
+          <span>
+            Carregando
+          </span>
         </div>
       </div>
     );
