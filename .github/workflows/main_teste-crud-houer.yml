@@ -18,7 +18,7 @@ jobs:
       contents: read #This is required for actions/checkout
     env:
       CI: false
-      
+
     steps:
       - uses: actions/checkout@v4
 
@@ -61,10 +61,8 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E7A4B791F41246A98E67353077B5CB80 }}
 
       - name: 'Deploy to Azure Web App (Frontend)'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'teste-crud-houer'
           slot-name: 'Production'
-          package: ./
-          
+          package: frontend/build
