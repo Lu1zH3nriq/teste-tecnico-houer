@@ -104,14 +104,4 @@ Isso irá subir backend, frontend e banco de dados (caso configurado no compose)
 
 ## Usuário de teste
 - Login: admin@teste.com
-- Senha: 123456
-
-## Deploy
-- Frontend: Azure Web App (https://teste-crud-houer.azurewebsites.net)
-
-## Deploy Automatizado com GitHub Actions
-O deploy do projeto é realizado automaticamente via GitHub Actions, utilizando workflows configurados na pasta `.github/workflows` do repositório.
-
-- Sempre que há um push na branch `main`, o workflow `main_api-teste-houer.yml` é executado, realizando o build e o deploy do backend (API) para o Azure Web App.
-- Após a conclusão do deploy da API, o workflow `main_teste-crud-houer.yml` é disparado automaticamente, realizando o build e o deploy do frontend para o Azure Web App.
-- Dessa forma, o deploy do frontend só ocorre após o backend estar atualizado em produção.
+- Senha: 123123
