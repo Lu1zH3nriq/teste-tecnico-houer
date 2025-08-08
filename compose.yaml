@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  backend:
+    image: testebackend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: app-backend
+    ports:
+      - "3333:3333"
+    environment:
+      NODE_ENV: production
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    image: testefrontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: app-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - ./frontend/.env
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: seu_usuario
+      POSTGRES_PASSWORD: sua_senha
+      POSTGRES_DB: seu_banco
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

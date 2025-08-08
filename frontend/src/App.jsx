@@ -5,6 +5,7 @@ import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import CSVPage from './pages/CSVPage/CSVPage';
 import CrudPage from './pages/CrudPage/CrudPage';
+import './styles/App.css'
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuth();
