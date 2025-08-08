@@ -13,8 +13,12 @@ const OperationsDataCsv = require('../routes/operations_data_csv/operationDataCs
 const Users = require('../routes/auth/auth');
 
 
+const cors = require('cors');
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',
+    'https://teste-crud-houer.azurewebsites.net'
+  ],
   credentials: true
 }));
 
