@@ -26,16 +26,22 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
+
       - name: Set API URL env for production build
         run: echo "REACT_APP_API_URL=https://api-teste-houer.azurewebsites.net/" > .env
         working-directory: frontend
-        
+
       - name: npm install, build, and test (Frontend)
         run: |
           cd frontend
           npm install --legacy-peer-deps
           npm run build --if-present
           npm run test --if-present
+
+      - name: Prepare artifact for deployment (Frontend)
+        run: |
+          cp frontend/package.json frontend/build/
+          cp frontend/package-lock.json frontend/build/ || true
 
       - name: Upload artifact for deployment job (Frontend)
         uses: actions/upload-artifact@v4
