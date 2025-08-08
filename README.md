@@ -104,4 +104,4 @@ Isso irá subir backend, frontend e banco de dados (caso configurado no compose)
 
 ## Usuário de teste
 - Login: admin@teste.com
-- Senha: 123456
+- Senha: 123123
