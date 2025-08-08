@@ -13,7 +13,7 @@ sequelize.sync()
   .then(() => { console.log("Modelos Sincronizado") })
   .catch((error) => { console.log("Erro ao sincronizar modelos: ", error) });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3333;
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
