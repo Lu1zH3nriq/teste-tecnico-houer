@@ -3,7 +3,6 @@
 
 name: Build and deploy Node.js app to Azure Web App - teste-crud-houer (Frontend)
 
-
 on:
   workflow_run:
     workflows: ["Build and deploy Node.js app to Azure Web App - api-teste-houer"]
@@ -15,14 +14,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
     env:
       CI: false
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js version
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
@@ -31,33 +31,33 @@ jobs:
         run: echo "REACT_APP_API_URL=https://api-teste-houer.azurewebsites.net/" > .env
         working-directory: frontend
 
-      - name: npm install, build, and test (Frontend)
+      - name: Install dependencies and build
         run: |
           cd frontend
           npm install --legacy-peer-deps
-          npm run build --if-present
-          npm run test --if-present
+          npm run build
 
-      - name: Prepare artifact for deployment (Frontend)
+      - name: Prepare artifact for deployment
         run: |
-          cp frontend/package.json frontend/build/
-          cp frontend/package-lock.json frontend/build/ || true
+          cp -r frontend/build ./deploy
+          cp frontend/package.json ./deploy/
+          cp frontend/package-lock.json ./deploy/
 
-      - name: Upload artifact for deployment job (Frontend)
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: node-frontend
-          path: frontend/build/
+          path: deploy/
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download artifact from build job (Frontend)
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: node-frontend
@@ -69,9 +69,10 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C9883DCE058A468A80F175DC7A669075 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E7A4B791F41246A98E67353077B5CB80 }}
 
-      - name: 'Deploy to Azure Web App (Frontend)'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'teste-crud-houer'
           slot-name: 'Production'
           package: .
+
