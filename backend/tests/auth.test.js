@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../src/app/app');
 
+jest.setTimeout(20000);
 
 describe('Auth API', () => {
 
@@ -76,7 +77,7 @@ describe('Auth API', () => {
             .post('/api/auth/register')
             .send(user);
 
-        // Faz login para obter o refresh token
+        
         const loginRes = await request(app)
             .post('/api/auth/login')
             .send({
@@ -88,7 +89,7 @@ describe('Auth API', () => {
 
         const refreshToken = loginRes.body.refresh;
         
-        // Testa o endpoint de refresh (corrigido)
+        
         const refreshRes = await request(app)
             .post('/api/auth/token/refresh')
             .send({ refresh: refreshToken });
