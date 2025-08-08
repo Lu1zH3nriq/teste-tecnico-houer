@@ -23,17 +23,18 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: npm install, build, and test
+      - name: npm install, build, and test (API)
         run: |
-          npm install
+          cd backend
+          npm install --legacy-peer-deps
           npm run build --if-present
           npm run test --if-present
 
-      - name: Upload artifact for deployment job
+      - name: Upload artifact for deployment job (API)
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: .
+          name: node-api
+          path: backend/
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,11 +44,11 @@ jobs:
       contents: read #This is required for actions/checkout
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact from build job (API)
         uses: actions/download-artifact@v4
         with:
-          name: node-app
-      
+          name: node-api
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -55,11 +56,10 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DDA778E2F04043BA9DFABDAA81B7D084 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5F2FDD93449B4CFFBC651452F55C321A }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: 'Deploy to Azure Web App (API)'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'api-teste-houer'
           slot-name: 'Production'
-          package: .
-          
+          package: ./
