@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const { swaggerUi, swaggerSpec } = require('../config/swagger');
 const authMiddleware = require('../middlewares/authMiddleware');
+
 
 
 
@@ -29,6 +31,10 @@ app.use('/api/auth', Users);
 app.use('/api/data', authMiddleware, DataCsvRoutes); 
 app.use('/api/operations', authMiddleware, OperationsDataCsv);
 
-
+// Middleware de erro global (deve ser o último)
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ status: 'error', message: 'Erro interno do servidor.' });
+});
 
 module.exports = app;
