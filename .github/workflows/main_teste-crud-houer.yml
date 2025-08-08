@@ -26,7 +26,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
-
+      - name: Set API URL env for production build
+        run: echo "REACT_APP_API_URL=https://api-teste-houer.azurewebsites.net/" > .env
+        working-directory: frontend
+        
       - name: npm install, build, and test (Frontend)
         run: |
           cd frontend
@@ -65,4 +68,4 @@ jobs:
         with:
           app-name: 'teste-crud-houer'
           slot-name: 'Production'
-          package: frontend/build
+          package: .
